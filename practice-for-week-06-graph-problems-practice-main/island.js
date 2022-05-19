@@ -1,5 +1,24 @@
 function getNeighbors(row, col, graph) {
 
+  let neighbors = []
+  // Check bottom
+if (row < graph.length -1 && graph[row + 1][col] === 1)neighbors.push( [row + 1 , col])
+  // Check top
+  if ( row > 0 &&graph[row - 1][col]===1)neighbors.push( [row - 1 , col])
+
+  // Check right
+  if ( col < graph[0].length - 1&&graph[row ][col+1]===1)neighbors.push( [row , col+1])
+
+  // Check left
+  if (col>0&& graph[row ][col-1]===1)neighbors.push( [row , col-1])
+
+  // Return neighbors
+  console.log(neighbors)
+return neighbors
+
+
+
+
   // Check top
 
   // Check bottom
