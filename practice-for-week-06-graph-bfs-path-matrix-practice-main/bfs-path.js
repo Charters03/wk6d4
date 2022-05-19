@@ -1,19 +1,47 @@
 function findNeighbors(node, matrix) {
-    // Up
-
-    // Down
-
-    // Left
-
-    // Right
-
-    // Your code here
+    let row = node[0];
+    let col = node[1];
+    let neighbors = []
+    // Check bottom
+  if (row < matrix.length -1 && matrix[row + 1][col] > 0)neighbors.push( [row + 1 , col])
+    // Check top
+    if ( row > 0 &&matrix[row - 1][col] > 0)neighbors.push( [row - 1 , col])
+  
+    // Check right
+    if ( col < matrix[0].length - 1&&matrix[row ][col+1] > 0)neighbors.push( [row , col+1])
+  
+    // Check left
+    if (col>0&& matrix[row ][col-1] > 0)neighbors.push( [row , col-1])
+  
+    // Return neighbors
+    return neighbors;
 }
 
 
 function bfsPath(matrix, startNode, endValue) {
-    // Your code here
+    let coordinates = [startNode];
+    let queue = [startNode];
+    let visited = new Set();
+    visited.add(JSON.stringify(startNode));
+
+    while (queue.length) {
+        let currentNode = queue.shift();
+        if (currentNode && matrix[currentNode[0]][currentNode[1]] === endValue) return coordinates;
+        
+        let neighbors = findNeighbors(currentNode, matrix) 
+        if (neighbors) {
+            neighbors.forEach(el => {
+                if (!visited.has(JSON.stringify(el))) {
+                    queue.push(el);
+                    coordinates.push(el);
+                    visited.add(JSON.stringify(el))
+                }
+            })
+        }
+    }
+    return false;
 }
+
 
 
 // ***** UNCOMMENT FOR LOCAL TESTING *****

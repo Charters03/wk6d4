@@ -13,8 +13,7 @@ if (row < graph.length -1 && graph[row + 1][col] === 1)neighbors.push( [row + 1 
   if (col>0&& graph[row ][col-1]===1)neighbors.push( [row , col-1])
 
   // Return neighbors
-  console.log(neighbors)
-return neighbors
+  return neighbors;
 
 
 
@@ -34,7 +33,27 @@ return neighbors
 
 
 function islandSize(row, col, graph) {
+  let visited = new Set();
+  const stack = [[row, col]];
+  visited.add(JSON.stringify([row, col]));
+  let size = 0;
 
+while(stack.length) {
+  let currentNode = stack.pop();
+  size++;
+  
+  let neighbors = getNeighbors(currentNode[0], currentNode[1], graph);
+  if (neighbors) {
+    neighbors.forEach(el => {
+      if (!visited.has(JSON.stringify(el))) {
+      stack.push(el);
+      visited.add(JSON.stringify(el));
+      }
+    })
+  }
+}
+return size;
+}
   // Create a visited set to store visited nodes
 
   // Create a stack, put the starting node in the stack
@@ -57,6 +76,6 @@ function islandSize(row, col, graph) {
   // return size
 
   // Your code here
-}
+
 
 module.exports = [getNeighbors, islandSize];
